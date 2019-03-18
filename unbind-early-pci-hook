@@ -1,0 +1,5 @@
+#! /bin/bash
+
+if [ -f /etc/unbindpci.conf ]; then
+  cp -pP /etc/unbindpci.conf $DESTDIR/etc/unbindpci.conf
+fi

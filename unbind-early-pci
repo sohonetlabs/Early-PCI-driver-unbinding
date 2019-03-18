@@ -1,0 +1,25 @@
+#!/bin/sh
+
+PREREQ=""
+prereqs()
+{
+        echo "$PREREQ"
+}
+case $1 in
+# get pre-requisites
+prereqs)
+        prereqs
+        exit 0
+        ;;
+esac
+
+if [ -f /etc/unbindpci ]; then
+         echo "Unbinding pci ports..."
+         IFS=,
+         while read addr driver; do
+         if [ -f /sys/bus/pci/drivers/$driver/unbind ]; then
+               echo "Unbinding $addr, device $driver"
+               echo $addr > /sys/bus/pci/drivers/$driver/unbind
+         fi
+         done < /etc/unbindpci.conf
+fi
