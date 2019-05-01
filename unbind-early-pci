@@ -13,12 +13,14 @@ prereqs)
         ;;
 esac
 
-if [ -f /etc/unbindpci ]; then
-         echo "Unbinding pci ports..."
+echo "Early unbind pci ports" > /dev/kmsg
+
+if [ -f /etc/unbindpci.conf ]; then
+         echo "Unbinding pci ports..." > /dev/kmsg
          IFS=,
          while read addr driver; do
          if [ -f /sys/bus/pci/drivers/$driver/unbind ]; then
-               echo "Unbinding $addr, device $driver"
+               echo "Unbinding $addr, device $driver" > /dev/kmsg
                echo $addr > /sys/bus/pci/drivers/$driver/unbind
          fi
          done < /etc/unbindpci.conf

@@ -49,6 +49,8 @@ You will need to put the following files in these locations
 Then rebuild initramfs to make active
 
     sudo update-initramfs -u
+    
+Note: make sure the scripts are executeable chmod +x all the things
  
 ## unbindpci.conf
 
